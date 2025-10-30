@@ -1,1 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Fantasma - Tu agenda siempre llena</title>
+    <meta name="description" content="Sistema automático que llena los huecos de tu agenda dental o estética cuando hay cancelaciones. Envía WhatsApp a tu lista de espera sin tocar tu móvil. Desde 27€/mes.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #2D3E50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #00D9C5 0%, #00B8A9 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #00D9C5;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: #10B981;
+            color: white;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            background: #059669;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 20px;
+        }
+
+        .bg-gray {
+            background: #F8F9FA;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #2D3E50;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #6B7280;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .comparison-box {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .comparison-box.negative {
+            border-left: 5px solid #EF4444;
+        }
+
+        .comparison-box.positive {
+            border-left: 5px solid #10B981;
+        }
+
+        .comparison-box h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comparison-box ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .comparison-box li {
+            padding: 10px 0;
+            font-size: 16px;
+        }
+
+        .comparison-result {
+            background: #FEF2F2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            color: #DC2626;
+        }
+
+        .positive .comparison-result {
+            background: #ECFDF5;
+            color: #059669;
+        }
+
+        /* How it Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #00D9C5;
+        }
+
+        .step p {
+            font-size: 15px;
+            color: #6B7280;
+        }
+
+        .step-example {
+            background: #F0FDFA;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            font-style: italic;
+            color: #047857;
+        }
+
+        /* Metaphor Box */
+        .metaphor {
+            background: linear-gradient(135deg, #00D9C5 0%, #00B8A9 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 500;
+            margin: 60px auto;
+            max-width: 900px;
+            box-shadow: 0 10px 40px rgba(0, 217, 197, 0.3);
+        }
+
+        /* Benefits */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .benefit-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #00D9C5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .benefit-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #10B981;
+            margin: 20px 0 10px 0;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2D3E50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-answer {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.8;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 40px auto;
+            border: 3px solid #00D9C5;
+        }
+
+        .pricing-item {
+            margin-bottom: 30px;
+        }
+
+        .pricing-item h3 {
+            font-size: 28px;
+            color: #00D9C5;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #2D3E50;
+        }
+
+        .pricing-includes {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .pricing-includes li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-includes li:before {
+            content: "✓";
+            color: #10B981;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .roi-calc {
+            background: #ECFDF5;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .roi-calc h4 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #047857;
+        }
+
+        .roi-calc .calc-line {
+            font-size: 18px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+
+        .guarantee {
+            background: #FEF3C7;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            color: #92400E;
+            margin-top: 20px;
+        }
+
+        /* Who is it for */
+        .for-who {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .for-who-box {
+            padding: 40px;
+            border-radius: 16px;
+        }
+
+        .for-who-box.yes {
+            background: #ECFDF5;
+            border: 2px solid #10B981;
+        }
+
+        .for-who-box.no {
+            background: #FEF2F2;
+            border: 2px solid #EF4444;
+        }
+
+        .for-who-box h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .for-who-box ul {
+            list-style: none;
+        }
+
+        .for-who-box li {
+            padding: 12px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2D3E50 0%, #1F2937 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .cta-section h2 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .whatsapp-note {
+            margin-top: 20px;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: #2D3E50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #00D9C5;
+            text-decoration: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .comparison,
+            .steps,
+            .benefits,
+            .for-who {
+                grid-template-columns: 1fr;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                padding: 16px 30px;
+            }
+
+            .metaphor {
+                font-size: 18px;
+                padding: 30px 20px;
+            }
+
+            .pricing-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>¿Citas canceladas?<br>Tu agenda se llena sola</h1>
+            <p>El primer sistema que envía WhatsApp automático a tu lista de espera. Sin llamadas. Sin perder tiempo. Sin huecos vacíos.</p>
+            <a href="https://wa.me/351932178791?text=Hola,%20quiero%20ver%20cómo%20funciona%20Agenda%20Fantasma%20en%20mi%20clínica" class="btn-primary" target="_blank">Quiero ver cómo funciona</a>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="bg-gray">
+        <div class="container">
+            <h2>¿Te suena familiar?</h2>
+            <div class="comparison">
+                <!-- Without System -->
+                <div class="comparison-box negative">
+                    <h3>❌ SIN AGENDA FANTASMA</h3>
+                    <ul>
+                        <li>• La secretaria busca la lista de espera</li>
+                        <li>• Llama a María, no contesta</li>
+                        <li>• Llama a Pedro, está ocupado</li>
+                        <li>• Llama a Ana, dice que no puede</li>
+                        <li>• Llama a José, dice que sí</li>
+                    </ul>
+                    <div class="comparison-result">
+                        → 4 llamadas, 20 minutos perdidos, y a veces el hueco queda vacío
+                    </div>
+                </div>
+
+                <!-- With System -->
+                <div class="comparison-box positive">
+                    <h3>✅ CON AGENDA FANTASMA</h3>
+                    <ul>
+                        <li>• La secretaria escribe en Excel: "Viernes 10am - Cancelado"</li>
+                        <li>• El sistema lee la hoja cada 15 minutos</li>
+                        <li>• Envía WhatsApp automático a toda la lista de espera</li>
+                        <li>• Los pacientes responden directamente</li>
+                        <li>• Confirmáis con el primero que diga SÍ</li>
+                    </ul>
+                    <div class="comparison-result">
+                        → 0 llamadas, 2 minutos, hueco lleno ✓
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section>
+        <div class="container">
+            <h2>¿Cómo funciona Agenda Fantasma?</h2>
+            <p class="subtitle">Tan fácil que parece magia (pero es automatización)</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">📅</div>
+                    <h3>1. Cancelación</h3>
+                    <p>Un paciente cancela su cita del viernes a las 10am</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">📝</div>
+                    <h3>2. Escribís en Excel</h3>
+                    <p>Vuestra secretaria lo apunta en la hoja</p>
+                    <div class="step-example">"Viernes 10am - Cancelado"</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">📱</div>
+                    <h3>3. WhatsApp automático</h3>
+                    <p>El sistema envía el mensaje a vuestra lista de espera</p>
+                    <div class="step-example">"Tenemos un hueco disponible el viernes 10am. ¿Te interesa?"</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">✅</div>
+                    <h3>4. Hueco lleno</h3>
+                    <p>El primer paciente que responde se queda la cita</p>
+                    <div class="step-example">Todo en menos de 2 minutos</div>
+                </div>
+            </div>
+
+            <div class="metaphor">
+                Es como tener una secretaria robot trabajando 24 horas, pero sin pagarle sueldo. Ella lee vuestra hoja de Excel, envía los WhatsApp, y vosotros solo confirmáis.
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="bg-gray">
+        <div class="container">
+            <h2>¿Qué ganas exactamente?</h2>
+            
+            <div class="benefits">
+                <div class="benefit-card">
+                    <h3>💰 Recupera ingresos perdidos</h3>
+                    <p>Si cada consulta son 60€ y recuperas 10 citas al mes:</p>
+                    <div class="benefit-number">600€ más al mes</div>
+                    <p>que antes se perdían completamente</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3>⏰ Ahorra tiempo</h3>
+                    <p>Sin llamadas manuales = 5 horas al mes ahorradas</p>
+                    <div class="benefit-number">20 horas al año</div>
+                    <p>Tu secretaria hace cosas más importantes</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3>😊 Pacientes más contentos</h3>
+                    <p>Tu lista de espera ve que les avisas cuando hay huecos</p>
+                    <div class="benefit-number">+80% satisfacción</div>
+                    <p>Mejor experiencia, más fidelización</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h3>🛠️ Sin complicaciones técnicas</h3>
+                    <p>Solo escribir en Excel (lo que ya sabéis)</p>
+                    <div class="benefit-number">0 conocimiento técnico</div>
+                    <p>Nosotros instalamos todo, tú solo usas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section>
+        <div class="container">
+            <h2>Inversión</h2>
+            
+            <div class="pricing-card">
+                <div class="pricing-item">
+                    <h3>💳 Instalación</h3>
+                    <div class="price">97€</div>
+                    <p style="color: #6B7280; margin-bottom: 15px;">Pago único</p>
+                    <ul class="pricing-includes">
+                        <li>Configuración completa</li>
+                        <li>Capacitación 30 minutos</li>
+                        <li>Manual paso a paso</li>
+                        <li>Primer mes de servicio</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-item">
+                    <h3>📅 Mensualidad</h3>
+                    <div class="price">27€<span style="font-size: 24px; font-weight: 400;">/mes</span></div>
+                    <p style="color: #6B7280; margin-bottom: 15px;">A partir del mes 2</p>
+                    <ul class="pricing-includes">
+                        <li>Monitoreo continuo</li>
+                        <li>Soporte por WhatsApp</li>
+                        <li>Reportes mensuales</li>
+                        <li>Mantenimiento incluido</li>
+                    </ul>
+                </div>
+
+                <div class="roi-calc">
+                    <h4>Si recuperas solo 2 citas al mes (60€ cada una):</h4>
+                    <div class="calc-line">120€ recuperados - 27€ servicio = <span style="color: #10B981; font-size: 24px;">93€ ganancia neta</span></div>
+                    <p style="margin-top: 15px; color: #047857;">→ El sistema se paga solo y te genera beneficio</p>
+                </div>
+
+                <p style="text-align: center; font-size: 18px; color: #6B7280; margin: 20px 0;">
+                    Menos de <strong>1€ al día</strong> para no perder más citas
+                </p>
+
+                <div class="guarantee">
+                    🛡️ Garantía de 30 días o te devolvemos el dinero
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="https://wa.me/351932178791?text=Hola,%20quiero%20solicitar%20la%20instalación%20de%20Agenda%20Fantasma" class="btn-secondary" target="_blank">Solicitar instalación</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="bg-gray">
+        <div class="container">
+            <h2>Preguntas frecuentes (las de verdad)</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">❓ ¿Es complicado de usar?</div>
+                <div class="faq-answer">
+                    No. Solo escribes en Excel cuando se cancela una cita. Tres columnas: Fecha, Hora, ¿Se llenó? El sistema hace TODO lo demás automáticamente.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ ¿Necesito saber de tecnología?</div>
+                <div class="faq-answer">
+                    Para nada. Si sabes usar Excel y WhatsApp, ya está. Nosotros te lo dejamos instalado y funcionando. Tú solo escribes en la hoja.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ ¿Y si tengo problemas?</div>
+                <div class="faq-answer">
+                    Te instalamos todo nosotros + Capacitación 30 min + Manual con fotos + Soporte por WhatsApp. Y si en 30 días no te sirve, te devolvemos el dinero.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">❓ ¿Funciona con mi agenda actual?</div>
+                <div class="faq-answer">
+                    Sí, se adapta a cualquier sistema. Trabaja con Excel y WhatsApp, que todos tenéis. No hace falta cambiar nada de lo que ya usáis.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who is it for -->
+    <section>
+        <div class="container">
+            <h2>¿Es para mi clínica?</h2>
+            
+            <div class="for-who">
+                <div class="for-who-box yes">
+                    <h3>✅ PERFECTO PARA TI SI:</h3>
+                    <ul>
+                        <li><span style="color: #10B981; font-weight: bold;">✓</span> Tenéis entre 10-30 citas al día</li>
+                        <li><span style="color: #10B981; font-weight: bold;">✓</span> Usáis WhatsApp Business (o normal)</li>
+                        <li><span style="color: #10B981; font-weight: bold;">✓</span> Tenéis lista de espera de pacientes</li>
+                        <li><span style="color: #10B981; font-weight: bold;">✓</span> Trabajáis con citas previas</li>
+                        <li><span style="color: #10B981; font-weight: bold;">✓</span> Os cancelan 2+ citas por semana</li>
+                        <li><span style="color: #10B981; font-weight: bold;">✓</span> Sabéis usar Excel básico</li>
+                        <li><span style="color: #10B981; font-weight: bold;">✓</span> Queréis recuperar ingresos perdidos</li>
+                    </ul>
+                </div>
+
+                <div class="for-who-box no">
+                    <h3>❌ NO ES PARA TI SI:</h3>
+                    <ul>
+                        <li><span style="color: #EF4444; font-weight: bold;">✗</span> Atendéis sin cita previa (walk-in)</li>
+                        <li><span style="color: #EF4444; font-weight: bold;">✗</span> No usáis WhatsApp en la clínica</li>
+                        <li><span style="color: #EF4444; font-weight: bold;">✗</span> Tenéis menos de 5 citas al día</li>
+                        <li><span style="color: #EF4444; font-weight: bold;">✗</span> Nunca os cancelan (¿en serio? 😅)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>¿Quieres verlo funcionando en TU clínica?</h2>
+            <p>Te enseñamos cómo funciona con tus datos reales en una videollamada de 15 minutos (gratis y sin compromiso)</p>
+            <a href="https://wa.me/351932178791?text=Hola,%20quiero%20ver%20cómo%20funciona%20Agenda%20Fantasma%20en%20mi%20clínica" class="btn-secondary" target="_blank">Solicitar demo gratuita por WhatsApp</a>
+            <p class="whatsapp-note">📱 Respondemos en menos de 2 horas</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3 style="color: #00D9C5; margin-bottom: 20px;">Agenda Fantasma</h3>
+            <p style="margin-bottom: 15px;">Negocios Inteligentes</p>
+            <p style="margin-bottom: 15px;">
+                <a href="https://wa.me/351932178791" target="_blank">📱 WhatsApp: +351 932 178 791</a>
+            </p>
+            <p style="margin-bottom: 20px;">Con sede en Portugal, servicio a toda España</p>
+            <p style="font-size: 14px; opacity: 0.7;">© 2025 Agenda Fantasma. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
