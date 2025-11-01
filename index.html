@@ -487,6 +487,82 @@
             text-decoration: none;
         }
 
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #6B7280;
+        }
+
+        .modal-close:hover {
+            color: #2D3E50;
+        }
+
+        .modal-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .modal-form input:focus {
+            outline: none;
+            border-color: #00D9C5;
+            box-shadow: 0 0 0 3px rgba(0,217,197,0.1);
+        }
+
+        .modal-form button {
+            width: 100%;
+            padding: 14px;
+            background-color: #00D9C5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-form button:hover {
+            background-color: #00B8A9;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .hero h1 {
@@ -522,6 +598,10 @@
             .pricing-card {
                 padding: 30px 20px;
             }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
@@ -552,7 +632,7 @@
 </div>
 
             <p>El primer sistema que envía WhatsApp automático a tu lista de espera. Sin llamadas. Sin perder tiempo. Sin huecos vacíos.</p>
-            <a href="https://wa.me/351932178791?text=Hola,%20quiero%20ver%20cómo%20funciona%20Agenda%20Fantasma%20en%20mi%20clínica" class="btn-primary" target="_blank">Quiero ver cómo funciona</a>
+            <button onclick="mostrarFormulario()" class="btn-primary">Quiero ver cómo funciona</button>
         </div>
     </section>
 
@@ -717,7 +797,7 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 30px;">
-                    <a href="https://wa.me/351932178791?text=Hola,%20quiero%20solicitar%20la%20instalación%20de%20Agenda%20Fantasma" class="btn-secondary" target="_blank">Solicitar instalación</a>
+                    <button onclick="mostrarFormulario()" class="btn-secondary">Solicitar acceso</button>
                 </div>
             </div>
         </div>
@@ -795,7 +875,7 @@
         <div class="container">
             <h2>¿Quieres verlo funcionando en TU clínica?</h2>
             <p>Te enseñamos cómo funciona con tus datos reales en una videollamada de 15 minutos (gratis y sin compromiso)</p>
-            <a href="https://wa.me/351932178791?text=Hola,%20quiero%20ver%20cómo%20funciona%20Agenda%20Fantasma%20en%20mi%20clínica" class="btn-secondary" target="_blank">Solicitar demo gratuita por WhatsApp</a>
+            <button onclick="mostrarFormulario()" class="btn-secondary">Solicitar demo gratuita</button>
             <p class="whatsapp-note">📱 Respondemos en menos de 2 horas</p>
         </div>
     </section>
@@ -812,6 +892,111 @@
             <p style="font-size: 14px; opacity: 0.7;">© 2025 Agenda Fantasma. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <!-- MODAL FORMULARIO -->
+    <div id="modalFormulario" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="cerrarFormulario()">✕</button>
+            <h2 style="text-align: center; margin-bottom: 20px; color: #2D3E50;">Acceso a Agenda Fantasma</h2>
+            <p style="text-align: center; color: #6B7280; margin-bottom: 25px;">Completa tus datos y accede a la demo</p>
+            
+            <form id="formularioLead" class="modal-form" onsubmit="return manejarEnvio(event)">
+                <input type="text" name="nombre" placeholder="Tu nombre completo" required>
+                <input type="email" name="email" placeholder="Tu correo electrónico" required>
+                <input type="tel" name="telefono" placeholder="Tu teléfono (con código país)" required>
+                <button type="submit">Ver Demo Ahora →</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL VIDEO DEMO -->
+    <div id="videoDemoContainer" class="modal-overlay">
+        <div class="modal-content" style="max-width: 800px;">
+            <button class="modal-close" onclick="cerrarVideo()">✕</button>
+            <h2 style="text-align: center; margin-bottom: 20px; color: #2D3E50;">¡Bienvenido! Aquí está tu demo completa</h2>
+            
+            <div class="video-wrapper" style="margin: 0; padding-top: 56.25%; max-width: 100%;">
+                <iframe
+                    src="https://www.youtube.com/embed/9FyH3uCYO0I?autoplay=1&rel=0"
+                    title="Demo Agenda Fantasma"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div style="text-align: center; margin-top: 25px;">
+                <p style="color: #6B7280; margin-bottom: 15px;">¿Quieres saber más? Contacta con nosotros por WhatsApp</p>
+                <a href="https://wa.me/351932178791?text=Hola,%20quiero%20solicitar%20más%20información%20sobre%20Agenda%20Fantasma" target="_blank" class="btn-secondary">Contactar por WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT PARA MODALES Y FORMULARIO -->
+    <script>
+        function mostrarFormulario() {
+            document.getElementById("modalFormulario").classList.add("active");
+        }
+
+        function cerrarFormulario() {
+            document.getElementById("modalFormulario").classList.remove("active");
+        }
+
+        function mostrarVideo() {
+            document.getElementById("modalFormulario").classList.remove("active");
+            document.getElementById("videoDemoContainer").classList.add("active");
+        }
+
+        function cerrarVideo() {
+            document.getElementById("videoDemoContainer").classList.remove("active");
+        }
+
+        function manejarEnvio(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(document.getElementById("formularioLead"));
+            
+            fetch("https://formspree.io/f/xzzkkanv", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Limpia el formulario
+                    document.getElementById("formularioLead").reset();
+                    // Muestra el video después de 500ms
+                    setTimeout(() => {
+                        mostrarVideo();
+                    }, 500);
+                } else {
+                    alert('Hubo un error. Por favor intenta de nuevo.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al enviar. Intenta de nuevo.');
+            });
+            
+            return false;
+        }
+
+        // Cerrar modal al hacer clic fuera
+        document.getElementById("modalFormulario").addEventListener("click", function(event) {
+            if (event.target === this) {
+                cerrarFormulario();
+            }
+        });
+
+        document.getElementById("videoDemoContainer").addEventListener("click", function(event) {
+            if (event.target === this) {
+                cerrarVideo();
+            }
+        });
+    </script>
 
 </body>
 </html>
