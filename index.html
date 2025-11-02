@@ -74,8 +74,6 @@
             padding: 80px 20px;
             text-align: center;
         }
-</div>
-
 
         .hero h1 {
             font-size: 48px;
@@ -880,7 +878,7 @@
         </div>
     </section>
 
-    <!-- CALENDLY SECTION (Página principal) - LA CORRECTA -->
+    <!-- CALENDLY SECTION (Página principal) - SOLO EL PRIMERO -->
     <section style="padding: 80px 20px; background: #F8F9FA;">
         <div class="container">
             <div style="max-width: 900px; margin: 0 auto; text-align: center;">
@@ -894,20 +892,6 @@
                 </div>
 
                 <a href="https://wa.me/351932178791?text=Hola,%20acabo%20de%20ver%20Agenda%20Fantasma%20y%20quiero%20saber%20más" target="_blank" class="btn-secondary">Contactar por WhatsApp</a>
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- CALENDLY SECTION -->
-    <section style="padding: 80px 20px; background: #F8F9FA;">
-        <div class="container">
-            <h2 style="margin-bottom: 40px;">Agenda tu llamada de demostración</h2>
-            <p style="text-align: center; font-size: 18px; color: #6B7280; margin-bottom: 40px;">Elige el día y hora que mejor te venga. Sin compromisos.</p>
-            
-            <div style="max-width: 900px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
-                <iframe src="https://calendly.com/negociosinteligentesdg/30min?hide_event_type_details=1&hide_gdpr_banner=1" width="100%" height="700" frameborder="0" style="display: block;"></iframe>
             </div>
         </div>
     </section>
@@ -1046,9 +1030,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    // Limpia el formulario
                     document.getElementById("formularioLead").reset();
-                    // Muestra el video después de 500ms
                     setTimeout(() => {
                         mostrarVideo();
                     }, 500);
@@ -1064,7 +1046,6 @@
             return false;
         }
 
-        // Cerrar modal al hacer clic fuera
         document.getElementById("modalFormulario").addEventListener("click", function(event) {
             if (event.target === this) {
                 cerrarFormulario();
